@@ -1,3 +1,11 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+console.log(process.env.GATSBY_BUILDER_API_KEY)
+
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -6,6 +14,16 @@ module.exports = {
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   },
   plugins: [
+    {
+    resolve: '@builder.io/gatsby',
+    options: {
+      // Replace with your Public API Key
+      publicAPIKey: process.env.GATSBY_BUILDER_API_KEY,
+      templates: {
+        // Render every `page` model as a new page using the
+        // src/templates/page.jsx template based on the URL provided in Builder.io
+        page: path.resolve('src/templates/page.jsx'),
+      }}},
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
